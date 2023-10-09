@@ -1,0 +1,38 @@
+DROP TABLE IF EXISTS students;
+CREATE TABLE students (
+    id_pk INTEGER PRIMARY KEY AUTOINCREMENT,
+    name_uq VARCHAR(56) NOT NULL,
+    group_id_fk INTEGER,
+    FOREIGN KEY (group_id_fk) REFERENCES groups (id_pk)  ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS groups;
+CREATE TABLE groups (
+    id_pk INTEGER PRIMARY KEY AUTOINCREMENT,
+    name_uq VARCHAR(56) UNIQUE NOT NULL 
+);
+
+DROP TABLE IF EXISTS tutors;
+CREATE TABLE tutors (
+    id_pk INTEGER PRIMARY KEY AUTOINCREMENT,
+    name_uq VARCHAR(56) UNIQUE NOT NULL
+);
+
+DROP TABLE IF EXISTS subjects;
+CREATE TABLE subjects (
+    id_pk INTEGER PRIMARY KEY AUTOINCREMENT,
+    name_uq VARCHAR(26) UNIQUE NOT NULL,
+    tutor_id_fk INTEGER,
+    FOREIGN KEY (tutor_id_fk) REFERENCES tutors (id_pk) ON DELETE SET NULL ON UPDATE CASCADE 
+);
+
+DROP TABLE IF EXISTS marks;
+CREATE TABLE marks (
+    id_pk INTEGER PRIMARY KEY AUTOINCREMENT,
+    mark_value INTEGER,
+    student_id_fk INTEGER,
+    subject_id_fk INTEGER,
+    today_date CHAR(10),
+    FOREIGN KEY (subject_id_fk) REFERENCES subjects (id_pk) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (student_id_fk) REFERENCES students (id_pk) ON DELETE CASCADE ON UPDATE CASCADE 
+);
