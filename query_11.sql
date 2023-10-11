@@ -7,5 +7,6 @@ FROM (SELECT s.name_uq AS stundent_name, t.name_uq AS tutor_name, AVG(m.mark_val
 	LEFT JOIN subjects sub ON sub.id_pk = m.subject_id_fk
 	LEFT JOIN tutors t ON t.id_pk = sub.tutor_id_fk
 	GROUP BY s.name_uq, t.name_uq, sub.name_uq)
+WHERE stundent_name = ? AND tutor_name = ?
 GROUP BY stundent_name, tutor_name
 ORDER BY stundent_name, tutor_name; 
